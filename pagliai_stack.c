@@ -5,25 +5,27 @@
 
 // The stack definition.
 // A stack has a fixed maximal size.
-typedef struct
+struct uint_stack
 {
-  unsigned int max_size;
+  unsigned int size;
 	unsigned int* values;
 	unsigned int position;
-} uint_stack_t;
+};
+
+typedef struct uint_stack uint_stack_t;
 
 // Create a new stack of size nb.
 // Return NULL if the creation didn't succeed (for a lack of memory)
-/* uint_stack_t* uint_stack_create(size_t nb)
+uint_stack_t* uint_stack_create(size_t nb)
 {
   // Allocate the new stack
-	uint_stack_t* stack = malloc(nb*sizeof(unsigned int));
+	uint_stack_t* stack = malloc(sizeof(unsigned int)*nb);
 	
 	// Did the allocation succeed ?
 	if (stack != NULL)
 	{
-		stack -> max_size = nb;
-		stack -> values = NULL; 
+		stack -> size = nb;
+		stack -> values = NULL;
 		stack -> position = 0;
 		
 		// Everything is OK, return the new stack
@@ -35,51 +37,51 @@ typedef struct
 		// Error of allocation (lack of memory)
 		return NULL;
 	}
-} */
+}
 
 // Free the memory used by a stack.
 // After this call, the free'd stack can no longer be used.
-/* void uint_stack_destroy(uint_stack_t* stack)
+void uint_stack_destroy(uint_stack_t* stack)
 {
   free(stack);
 }
- */
+
 // Copy src into dst.
 // Return -1 if src is too big to be copied into dst, 0 otherwise.
-int uint_stack_copy(uint_stack_t* src, uint_stack_t* dst)
+/* int uint_stack_copy(uint_stack_t* src, uint_stack_t* dst)
 {
   // TO DO
-}
+} */
 
 // Swap the content of two stacks.
-/* uint_stack_swap(uint_stack_t* stack1, uint_stack_t* stack2)
+/* void uint_stack_swap(uint_stack_t* stack1, uint_stack_t* stack2)
 {
   // TO DO
-}
+} */
 
 // Push a value.
 // If the stack is full, it's not modified.
 // Return 0 if the stack wasn't full, -1 otherwise.
-int uint_stack_push(uint_stack_t* stack, unsigned int element)
+/* int uint_stack_push(uint_stack_t* stack, unsigned int element)
 {
   // TO DO
-}
+} */
 
 // Pop a value.
 // If the stack is empty, it's not modified.
 // Return 0 if the stack wasn't empty, -1 otherwise.
-int uint_stack_pop(uint_stack_t* stack, unsigned int* element)
+/* int uint_stack_pop(uint_stack_t* stack, unsigned int* element)
 {
   // TO DO
-}
+} */
 
 // Return the size of a stack.
 // This is the actual number of stored elements, not the maximal size.
-size_t uint_stack_size(uint_stack_t* stack)
+/* size_t uint_stack_size(uint_stack_t* stack)
 {
   // TO DO
-}
- */
+} */
+
 /* ------------------------------------------------------- */
 
 // Keep the number of failed tests.
@@ -99,7 +101,7 @@ size_t nb_failures = 0;
 
 int main(int argc, char** argv)
 {
-  /*// Check the uniqueness of created stacks.
+  // Check the uniqueness of created stacks.
   {
     uint_stack_t* stack1 = uint_stack_create(5);
     uint_stack_t* stack2 = uint_stack_create(5);
@@ -108,9 +110,9 @@ int main(int argc, char** argv)
     
     uint_stack_destroy(stack1);
     uint_stack_destroy(stack2);
-  }
- 
-  // Check a simple push()/pop().
+  
+	} 
+  /* // Check a simple push()/pop().
   {
     uint_stack_t* stack = uint_stack_create(5);
     CHECK(uint_stack_size(stack) == 0);
@@ -238,9 +240,9 @@ int main(int argc, char** argv)
 
     uint_stack_destroy(stack1);
     uint_stack_destroy(stack2);
-   }*/
+  }*/
 
-  // Number of failures.
+	// Number of failures.
   printf("%lu failure(s)\n", nb_failures);
   
   return EXIT_SUCCESS;
