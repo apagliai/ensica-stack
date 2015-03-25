@@ -62,7 +62,7 @@ void uint_stack_destroy(uint_stack_t* stack)
 
 // Copy src into dst.
 // Return -1 if src is too big to be copied into dst, 0 otherwise.
-/* int uint_stack_copy(uint_stack_t* src, uint_stack_t* dst)
+int uint_stack_copy(uint_stack_t* src, uint_stack_t* dst)
 {
   // Is the stack src too big to be copied into dst ?
 	if(src->size > dst->size)
@@ -71,15 +71,17 @@ void uint_stack_destroy(uint_stack_t* stack)
 	}
 	
 	else
-	{
-		// All values in dst are deleted
-		dst->values = NULL;
-		dst->nb_elements = 0;
-		
+	{		
 		// Values of src copied in dst
 		for(unsigned int i=0; i<src->size; ++i)
 		{
 			dst->values[i] = src->values[i];
+		}
+		
+		// If dst is bigger in size than src, other values must be re-initialized
+		for (unsigned i = src->size; i<dst->size; ++i)
+		{
+			dst->values[i] = 0;
 		}
 		
 		// Update of the new nb_elements for the stack dst
@@ -88,7 +90,7 @@ void uint_stack_destroy(uint_stack_t* stack)
 		// Everything is OK
 		return 0;
 	}
-} */
+}
 
 // Swap the content of two stacks.
 /* void uint_stack_swap(uint_stack_t* stack1, uint_stack_t* stack2)
@@ -278,7 +280,7 @@ int main(int argc, char** argv)
   } */
 
   // Test copy().
-  /* {
+  {
     unsigned int value;
 
     uint_stack_t* stack1 = uint_stack_create(5);
@@ -303,7 +305,7 @@ int main(int argc, char** argv)
 
     uint_stack_destroy(stack1);
     uint_stack_destroy(stack2);
-  } */
+  }
 
 	// Number of failures.
   printf("%lu failure(s)\n", nb_failures);
