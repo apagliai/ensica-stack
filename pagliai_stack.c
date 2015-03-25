@@ -54,6 +54,38 @@ void uint_stack_destroy(uint_stack_t* stack)
 	free(stack);
 }
 
+// Return the size of a stack.
+// This is the actual number of stored elements, not the maximal size.
+size_t uint_stack_size(uint_stack_t* stack)
+{
+  return stack->nb_elements;
+}
+
+// Check whether the stack is empty or not.
+// If the stack is empty, returns 1, 0 otherwise.
+int uint_stack_isEmpty(uint_stack_t* stack)
+{
+	// Is the stack empty ?
+	if(uint_stack_size(stack) == 0)
+	{
+		return 1;
+	}
+	
+	return 0;
+}
+
+// Check whether the stack is full or not.
+// If the stack is full, returns 1, 0 otherwise.
+int uint_stack_isFull(uint_stack_t* stack)
+{
+	// Is the stack full ?
+	if(uint_stack_size(stack) == stack->size)
+	{
+		return 1;
+	}
+	return 0;
+}
+
 // Copy src into dst.
 // Return -1 if src is too big to be copied into dst, 0 otherwise.
 int uint_stack_copy(uint_stack_t* src, uint_stack_t* dst)
@@ -92,7 +124,7 @@ int uint_stack_copy(uint_stack_t* src, uint_stack_t* dst)
 int uint_stack_push(uint_stack_t* stack, unsigned int element)
 {
   // Is the stack full ?
-	if(stack->nb_elements == stack->size)
+	if(uint_stack_isFull(stack) == 1)
 	{
 		return -1;
 	}
@@ -113,7 +145,7 @@ int uint_stack_push(uint_stack_t* stack, unsigned int element)
 int uint_stack_pop(uint_stack_t* stack, unsigned int* element)
 {
   // Is the stack empty ?
-	if(stack->nb_elements == 0)
+	if(uint_stack_isEmpty(stack) == 1)
 	{
 		return -1;
 	}
@@ -128,19 +160,12 @@ int uint_stack_pop(uint_stack_t* stack, unsigned int* element)
 	}
 }
 
-// Return the size of a stack.
-// This is the actual number of stored elements, not the maximal size.
-size_t uint_stack_size(uint_stack_t* stack)
-{
-  return stack->nb_elements;
-}
-
 // Print the stack.
 // If the stack is empty, "Empty stack" is written on the command line shell.
 void uint_stack_print(uint_stack_t* stack)
 {
 	// Is the stack empty ?
-	if(stack->nb_elements == 0)
+	if(uint_stack_isEmpty(stack) == 1)
 	{
 		printf("Empty stack.\n");
 	}
@@ -313,6 +338,22 @@ int main(int argc, char** argv)
     uint_stack_destroy(stack1);
     uint_stack_destroy(stack2);
   }
+	
+	// Test isEmpty() and isFull()
+	{
+		uint_stack_t* stack = uint_stack_create(3);
+		CHECK(uint_stack_isEmpty(stack) == 1);
+		
+		uint_stack_push(stack, 2);
+		CHECK(uint_stack_isEmpty(stack) == 0);
+		CHECK(uint_stack_isFull(stack) == 0);
+		
+		uint_stack_push(stack, 42);
+		uint_stack_push(stack, 33);
+		CHECK(uint_stack_isFull(stack) == 1);
+		
+		uint_stack_destroy(stack);
+	}
 
 	// Number of failures.
   printf("%lu failure(s)\n", nb_failures);
