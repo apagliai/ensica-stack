@@ -192,7 +192,7 @@ int main(int argc, char** argv)
   }
 
   // Test with a stack of size 1.
-  /* {
+  {
     uint_stack_t* stack = uint_stack_create(1);
 
     uint_stack_push(stack, 101);
@@ -203,10 +203,10 @@ int main(int argc, char** argv)
     CHECK(value == 101);
     CHECK(uint_stack_size(stack) == 0);
     uint_stack_destroy(stack);    
-  } */
+  }
 
   // Check multiple push()/pop().
-  /* {
+  {
     uint_stack_t* stack = uint_stack_create(10);
 
     size_t i = 0;
@@ -225,10 +225,10 @@ int main(int argc, char** argv)
     CHECK(uint_stack_size(stack) == 0);
 
     uint_stack_destroy(stack);
-  } */
+  }
 
   // Check that push() doesn't modify a full stack.
-  /* {
+  {
     uint_stack_t* stack = uint_stack_create(10);
 
     size_t i = 0;
@@ -245,7 +245,7 @@ int main(int argc, char** argv)
     }
 
     uint_stack_destroy(stack);
-  } */
+  }
 
   // Test swap().
   /* {
