@@ -119,8 +119,8 @@ int uint_stack_push(uint_stack_t* stack, unsigned int element)
 
 // Pop a value.
 // If the stack is empty, it's not modified.
-// Return the top element if the stack wasn't empty, -1 otherwise.
-int uint_stack_pop(uint_stack_t* stack)
+// Return 0 if the stack wasn't empty, -1 otherwise.
+int uint_stack_pop(uint_stack_t* stack, unsigned int* element)
 {
   // Is the stack empty ?
 	if(stack->nb_elements == 0)
@@ -131,10 +131,10 @@ int uint_stack_pop(uint_stack_t* stack)
 	else
 	{
 		stack->nb_elements--;
-		unsigned int value = stack->values[stack->nb_elements];
+		*element = stack->values[stack->nb_elements];
 		
 		// Everything is OK
-		return value; 
+		return 0; 
 	}
 }
 
@@ -184,7 +184,7 @@ int main(int argc, char** argv)
     CHECK(uint_stack_size(stack) == 1);
 
     unsigned int value;
-    value = uint_stack_pop(stack);
+    uint_stack_pop(stack, &value);
     CHECK(uint_stack_size(stack) == 0);
     CHECK(value == 42);
 
