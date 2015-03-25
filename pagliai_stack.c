@@ -39,12 +39,6 @@ uint_stack_t* uint_stack_create(size_t nb)
 	}
 		
 	// Everything is OK	
-	// Init the table of values
-	for (unsigned int i = 0; i < nb; ++i)
-	{
-		values[i] = 0;
-	}
-	
 	stack -> size = nb;
 	stack -> values = values;
 	stack -> nb_elements = 0;
@@ -76,12 +70,6 @@ int uint_stack_copy(uint_stack_t* src, uint_stack_t* dst)
 		for(unsigned int i=0; i<src->size; ++i)
 		{
 			dst->values[i] = src->values[i];
-		}
-		
-		// If dst is bigger in size than src, other values must be re-initialized
-		for (unsigned i = src->size; i<dst->size; ++i)
-		{
-			dst->values[i] = 0;
 		}
 		
 		// Update of the new nb_elements for the stack dst
@@ -145,6 +133,25 @@ int uint_stack_pop(uint_stack_t* stack, unsigned int* element)
 size_t uint_stack_size(uint_stack_t* stack)
 {
   return stack->nb_elements;
+}
+
+// Print the stack.
+// If the stack is empty, "Empty stack" is written on the command line shell.
+void uint_stack_print(uint_stack_t* stack)
+{
+	// Is the stack empty ?
+	if(stack->nb_elements == 0)
+	{
+		printf("Empty stack.\n");
+	}
+	else
+	{
+		for (unsigned int i = stack->nb_elements; i > 0; --i)
+		{
+			printf("%d | ", stack->values[i-1]);
+		}
+		printf("\n");
+	}
 }
 
 /* ------------------------------------------------------- */
