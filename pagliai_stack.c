@@ -113,10 +113,23 @@ int uint_stack_copy(uint_stack_t* src, uint_stack_t* dst)
 }
 
 // Swap the content of two stacks.
-/* void uint_stack_swap(uint_stack_t* stack1, uint_stack_t* stack2)
+void uint_stack_swap(uint_stack_t* stack1, uint_stack_t* stack2)
 {
-  // TO DO
-} */
+  // Define an intermediate stack to store stack1
+	uint_stack_t* temp = uint_stack_create(stack1->size);
+	
+	// Copy the content of stack1 in temp
+	uint_stack_copy(stack1, temp);
+	
+	// Put the content of stack2 in stack1
+	uint_stack_copy(stack2, stack1);
+	
+	// Put the content of temp in stack 2
+	uint_stack_copy(temp, stack2);
+	
+	// Erase the intermediate stack which is now useless
+	uint_stack_destroy(temp);
+}
 
 // Push a value.
 // If the stack is full, it's not modified.
@@ -282,7 +295,7 @@ int main(int argc, char** argv)
   }
 
   // Test swap().
-  /* {
+  {
     unsigned int value;
 
     uint_stack_t* stack1 = uint_stack_create(5);
@@ -309,7 +322,7 @@ int main(int argc, char** argv)
 
     uint_stack_destroy(stack1);
     uint_stack_destroy(stack2);
-  } */
+  }
 
   // Test copy().
   {
