@@ -13,4 +13,4 @@ clean:
 	rm -rf *.o *.a
 	
 distclean: clean
-	rm -rf pagliai_stack.exe
+	rm -rf pagliai_stack

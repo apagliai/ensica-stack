@@ -115,20 +115,19 @@ int uint_stack_copy(uint_stack_t* src, uint_stack_t* dst)
 // Swap the content of two stacks.
 void uint_stack_swap(uint_stack_t* stack1, uint_stack_t* stack2)
 {
-  // Define an intermediate stack to store stack1
-	uint_stack_t* temp = uint_stack_create(stack1->size);
+  // Define an intermediate pointer to store values of stack1
+	unsigned int* values_temp = stack1->values;
 	
-	// Copy the content of stack1 in temp
-	uint_stack_copy(stack1, temp);
+	// Define an intermediate integer to store the size of stack1
+	unsigned int size_temp = uint_stack_size(stack1);
 	
 	// Put the content of stack2 in stack1
-	uint_stack_copy(stack2, stack1);
+	stack1->values = stack2->values;
+	stack1->nb_elements = uint_stack_size(stack2);
 	
 	// Put the content of temp in stack 2
-	uint_stack_copy(temp, stack2);
-	
-	// Erase the intermediate stack which is now useless
-	uint_stack_destroy(temp);
+	stack2->values = values_temp;
+	stack2->nb_elements = size_temp;
 }
 
 // Push a value.
