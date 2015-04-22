@@ -1,5 +1,5 @@
 # stack_4MIN12
-Exercice : create a stack structure and its basic functions
+Exercise : create a stack structure and its basic functions
 
 Structure :
 * unsigned int size;
